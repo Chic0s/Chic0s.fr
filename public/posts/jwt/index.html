@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Jwt Token | Chic0s</title>
+<meta name="keywords" content="pentest, web, jwt">
+<meta name="description" content="What is JWT Token ? A JSON Web Token (JWT) consists of three parts separated by periods (.): the header, the payload, and the signature. Each part is Base64-encoded.
+Example JWT:  Header:  { &#34;alg&#34;: &#34;HS256&#34;, &#34;typ&#34;: &#34;JWT&#34; } Encoded in Base64, the header becomes: eyJhbGciOiAiSFMyNTYiLCAidHlwIjogIkpXVCJ9
+Payload:  { &#34;sub&#34;: &#34;1234567890&#34;, &#34;name&#34;: &#34;John Doe&#34;, &#34;iat&#34;: 1516239022 } Encoded in Base64, the payload becomes:
+eyJzdWIiOiAiMTIzNDU2Nzg5MCIsICJuYW1lIjogIkpvaG4gRG9lIiwgICJpYXQiOiAxNTE2MjM5MDIyfQ Signature: The signature is generated using the algorithm specified in the header (here, &ldquo;HS256&rdquo;).">
+<meta name="author" content="">
+<link rel="canonical" href="https://Chic0s.fr/posts/jwt/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.5cfc680b1eeaeef9efbced92d46c2a9e876b72ee14fba85846afc4cff9e6e6f8.css" integrity="sha256-XPxoCx7q7vnvvO2S1Gwqnodrcu4U&#43;6hYRq/Ez/nm5vg=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://Chic0s.fr/favicon/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://Chic0s.fr/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://Chic0s.fr/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://Chic0s.fr/apple-touch-icon.png">
+<link rel="mask-icon" href="https://Chic0s.fr/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="Jwt Token" />
+<meta property="og:description" content="What is JWT Token ? A JSON Web Token (JWT) consists of three parts separated by periods (.): the header, the payload, and the signature. Each part is Base64-encoded.
+Example JWT:  Header:  { &#34;alg&#34;: &#34;HS256&#34;, &#34;typ&#34;: &#34;JWT&#34; } Encoded in Base64, the header becomes: eyJhbGciOiAiSFMyNTYiLCAidHlwIjogIkpXVCJ9
+Payload:  { &#34;sub&#34;: &#34;1234567890&#34;, &#34;name&#34;: &#34;John Doe&#34;, &#34;iat&#34;: 1516239022 } Encoded in Base64, the payload becomes:
+eyJzdWIiOiAiMTIzNDU2Nzg5MCIsICJuYW1lIjogIkpvaG4gRG9lIiwgICJpYXQiOiAxNTE2MjM5MDIyfQ Signature: The signature is generated using the algorithm specified in the header (here, &ldquo;HS256&rdquo;)." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://Chic0s.fr/posts/jwt/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-12-03T21:23:42+01:00" />
+<meta property="article:modified_time" content="2023-12-03T21:23:42+01:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Jwt Token"/>
+<meta name="twitter:description" content="What is JWT Token ? A JSON Web Token (JWT) consists of three parts separated by periods (.): the header, the payload, and the signature. Each part is Base64-encoded.
+Example JWT:  Header:  { &#34;alg&#34;: &#34;HS256&#34;, &#34;typ&#34;: &#34;JWT&#34; } Encoded in Base64, the header becomes: eyJhbGciOiAiSFMyNTYiLCAidHlwIjogIkpXVCJ9
+Payload:  { &#34;sub&#34;: &#34;1234567890&#34;, &#34;name&#34;: &#34;John Doe&#34;, &#34;iat&#34;: 1516239022 } Encoded in Base64, the payload becomes:
+eyJzdWIiOiAiMTIzNDU2Nzg5MCIsICJuYW1lIjogIkpvaG4gRG9lIiwgICJpYXQiOiAxNTE2MjM5MDIyfQ Signature: The signature is generated using the algorithm specified in the header (here, &ldquo;HS256&rdquo;)."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://Chic0s.fr/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Jwt Token",
+      "item": "https://Chic0s.fr/posts/jwt/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Jwt Token",
+  "name": "Jwt Token",
+  "description": "What is JWT Token ? A JSON Web Token (JWT) consists of three parts separated by periods (.): the header, the payload, and the signature. Each part is Base64-encoded.\nExample JWT:  Header:  { \u0026#34;alg\u0026#34;: \u0026#34;HS256\u0026#34;, \u0026#34;typ\u0026#34;: \u0026#34;JWT\u0026#34; } Encoded in Base64, the header becomes: eyJhbGciOiAiSFMyNTYiLCAidHlwIjogIkpXVCJ9\nPayload:  { \u0026#34;sub\u0026#34;: \u0026#34;1234567890\u0026#34;, \u0026#34;name\u0026#34;: \u0026#34;John Doe\u0026#34;, \u0026#34;iat\u0026#34;: 1516239022 } Encoded in Base64, the payload becomes:\neyJzdWIiOiAiMTIzNDU2Nzg5MCIsICJuYW1lIjogIkpvaG4gRG9lIiwgICJpYXQiOiAxNTE2MjM5MDIyfQ Signature: The signature is generated using the algorithm specified in the header (here, \u0026ldquo;HS256\u0026rdquo;).",
+  "keywords": [
+    "pentest", "web", "jwt"
+  ],
+  "articleBody": "What is JWT Token ? A JSON Web Token (JWT) consists of three parts separated by periods (.): the header, the payload, and the signature. Each part is Base64-encoded.\nExample JWT:  Header:  { \"alg\": \"HS256\", \"typ\": \"JWT\" } Encoded in Base64, the header becomes: eyJhbGciOiAiSFMyNTYiLCAidHlwIjogIkpXVCJ9\nPayload:  { \"sub\": \"1234567890\", \"name\": \"John Doe\", \"iat\": 1516239022 } Encoded in Base64, the payload becomes:\neyJzdWIiOiAiMTIzNDU2Nzg5MCIsICJuYW1lIjogIkpvaG4gRG9lIiwgICJpYXQiOiAxNTE2MjM5MDIyfQ Signature: The signature is generated using the algorithm specified in the header (here, “HS256”). It is created by taking the concatenation of the encoded header, the encoded payload, and a secret key, and then applying the signature algorithm.  The signature depends on the secret key and the token’s content, ensuring the token’s integrity. In this example, the signature is not provided, but in a real context, it would be added after Base64 encoding.\nComplete JWT:\neyJhbGciOiAiSFMyNTYiLCAidHlwIjogIkpXVCJ9.eyJzdWIiOiAiMTIzNDU2Nzg5MCIsICJuYW1lIjogIkpvaG4gRG9lIiwgICJpYXQiOiAxNTE2MjM5MDIyfQ. The signature is generated by taking the concatenation of the encoded header, the encoded payload, and a secret key, then applying the signature algorithm. Note that in a real context, the signature would be added after Base64 encoding the signature.\nAlgorithm : The algorithms used in JSON Web Tokens (JWT) determine how the token’s signature is generated. Here’s an explanation of some commonly used algorithms:\n  HS256 (HMAC SHA-256):\n This algorithm uses a shared secret key between the issuer and the recipient. The signature is generated using the SHA-256 hash function.    RS256 (RSA Signature with SHA-256):\n This algorithm uses a public-private key pair based on RSA. The issuer signs the token with the private key, and the recipient verifies the signature using the public key.    ES256 (ECDSA using P-256 curve and SHA-256):\n This algorithm uses elliptic curves for asymmetric cryptography. Similar to RS256, it uses a public-private key pair but with different mathematical properties.    PS256 (RSA-PSS Signature with SHA-256):\n A variant of RS256 that uses the RSA-PSS signature scheme, providing enhanced security properties compared to simple RSA.    None:\n Indicates that the JWT is not signed. This is generally not recommended in production as it makes the token insecure.    Each algorithm has its own advantages and use cases. Asymmetric algorithms like RS256 are often used in scenarios where the issuer and recipient may have different keys, while symmetric algorithms like HS256 are used when both parties share a common secret key. The choice of algorithm depends on the specific security requirements of the application and system.\nHow to edit JWT Token You can use https://jwt.io JWT.io is an online platform for JSON Web Tokens (JWT). It provides an interactive decoder for visualizing and analyzing JWTs, decoding headers and payloads, and verifying signatures. It’s a handy tool for developers working with JWTs in authentication and authorization scenarios.\nYou can use Burpsuite extension JWT Editor You can use the Burp Suite extension called “JWT Editor” to manipulate JSON Web Tokens (JWTs) in your requests. For instance, you have the ability to create a new RSA key and directly edit the token within the request.\nUpon selecting the key, you are presented with options to perform various actions such as:\n Attack: This includes different types of attacks to test the JWT’s security. Sign: You can sign the JWT with a private key. Encrypt: Options for encrypting the JWT.  Under the “Attack” category, there are several techniques you can employ:\n  Embedded JWT: Imagine you have a secret note (JWT) hidden within another note. The system should be smart enough to find and validate the hidden note.\n  “none” Signing Algorithm: In the world of secret codes (JWTs), using “none” as the code to seal a note isn’t secure. It’s like having a lock that anyone can open without a key.\n  HMAC Key Confusion: If you have multiple keys to open a lock, confusion might arise. The system should be smart enough to use the correct key.\n  Sign with Empty Key: Signing a note with an invisible key doesn’t make sense. The system should recognize this and not trust notes signed with an empty key.\n  Sign with Psychic Signature: If someone claims to predict the future, the system should be skeptical. It’s like making sure a fortune teller is reliable before believing their predictions.\n  Embed Collaborator Payload: Imagine sending a secret message that includes a friend’s contact information. If the system leaks this information, it’s like accidentally revealing your friend’s details.\n  More ressources :\n https://book.hacktricks.xyz/pentesting-web/hacking-jwt-json-web-tokens https://portswigger.net/web-security/jwt  ",
+  "wordCount" : "716",
+  "inLanguage": "en",
+  "datePublished": "2023-12-03T21:23:42+01:00",
+  "dateModified": "2023-12-03T21:23:42+01:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://Chic0s.fr/posts/jwt/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Chic0s",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://Chic0s.fr/favicon/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://Chic0s.fr/" accesskey="h" title="Chic0s (Alt + H)">Chic0s</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://Chic0s.fr/archives/" title="Archives">
+                    <span>Archives</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://Chic0s.fr/posts/" title="Posts">
+                    <span>Posts</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://Chic0s.fr/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://Chic0s.fr/">Home</a>&nbsp;»&nbsp;<a href="https://Chic0s.fr/posts/">Posts</a></div>
+    <h1 class="post-title">
+      Jwt Token
+    </h1>
+    <div class="post-meta"><span title='2023-12-03 21:23:42 +0100 CET'>December 3, 2023</span>&nbsp;·&nbsp;4 min
+
+</div>
+  </header> 
+  <div class="post-content"><h1 id="what-is-jwt-token-">What is JWT Token ?<a hidden class="anchor" aria-hidden="true" href="#what-is-jwt-token-">#</a></h1>
+<p>A JSON Web Token (JWT) consists of three parts separated by periods (<code>.</code>): the header, the payload, and the signature. Each part is Base64-encoded.</p>
+<h2 id="example-jwt"><strong>Example JWT:</strong><a hidden class="anchor" aria-hidden="true" href="#example-jwt">#</a></h2>
+<ol>
+<li><strong>Header:</strong></li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+	 <span style="color:#f92672">&#34;alg&#34;</span>: <span style="color:#e6db74">&#34;HS256&#34;</span>,
+	 <span style="color:#f92672">&#34;typ&#34;</span>: <span style="color:#e6db74">&#34;JWT&#34;</span> 
+}
+</code></pre></div><p>Encoded in Base64, the header becomes: <code>eyJhbGciOiAiSFMyNTYiLCAidHlwIjogIkpXVCJ9</code></p>
+<ol start="2">
+<li><strong>Payload:</strong></li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+   <span style="color:#f92672">&#34;sub&#34;</span>: <span style="color:#e6db74">&#34;1234567890&#34;</span>,
+   <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;John Doe&#34;</span>,
+   <span style="color:#f92672">&#34;iat&#34;</span>: <span style="color:#ae81ff">1516239022</span> 
+}
+</code></pre></div><p>Encoded in Base64, the payload becomes:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#f92672">eyJzdWIiOiAiMTIzNDU2Nzg5MCIsICJuYW1lIjogIkpvaG4gRG9lIiwgICJpYXQiOiAxNTE2MjM5MDIyfQ</span>
+</code></pre></div><ol start="3">
+<li><strong>Signature:</strong> The signature is generated using the algorithm specified in the header (here, &ldquo;HS256&rdquo;). It is created by taking the concatenation of the encoded header, the encoded payload, and a secret key, and then applying the signature algorithm.</li>
+</ol>
+<p>The signature depends on the secret key and the token&rsquo;s content, ensuring the token&rsquo;s integrity. In this example, the signature is not provided, but in a real context, it would be added after Base64 encoding.</p>
+<p><strong>Complete JWT:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#f92672">eyJhbGciOiAiSFMyNTYiLCAidHlwIjogIkpXVCJ9</span>.<span style="color:#a6e22e">eyJzdWIiOiAiMTIzNDU2Nzg5MCIsICJuYW1lIjogIkpvaG4gRG9lIiwgICJpYXQiOiAxNTE2MjM5MDIyfQ</span><span style="color:#f92672">.</span>
+</code></pre></div><p>The signature is generated by taking the concatenation of the encoded header, the encoded payload, and a secret key, then applying the signature algorithm. Note that in a real context, the signature would be added after Base64 encoding the signature.</p>
+<h2 id="algorithm-">Algorithm :<a hidden class="anchor" aria-hidden="true" href="#algorithm-">#</a></h2>
+<p>The algorithms used in JSON Web Tokens (JWT) determine how the token&rsquo;s signature is generated. Here&rsquo;s an explanation of some commonly used algorithms:</p>
+<ol>
+<li>
+<p><strong>HS256 (HMAC SHA-256):</strong></p>
+<ul>
+<li>This algorithm uses a shared secret key between the issuer and the recipient.</li>
+<li>The signature is generated using the SHA-256 hash function.</li>
+</ul>
+</li>
+<li>
+<p><strong>RS256 (RSA Signature with SHA-256):</strong></p>
+<ul>
+<li>This algorithm uses a public-private key pair based on RSA.</li>
+<li>The issuer signs the token with the private key, and the recipient verifies the signature using the public key.</li>
+</ul>
+</li>
+<li>
+<p><strong>ES256 (ECDSA using P-256 curve and SHA-256):</strong></p>
+<ul>
+<li>This algorithm uses elliptic curves for asymmetric cryptography.</li>
+<li>Similar to RS256, it uses a public-private key pair but with different mathematical properties.</li>
+</ul>
+</li>
+<li>
+<p><strong>PS256 (RSA-PSS Signature with SHA-256):</strong></p>
+<ul>
+<li>A variant of RS256 that uses the RSA-PSS signature scheme, providing enhanced security properties compared to simple RSA.</li>
+</ul>
+</li>
+<li>
+<p><strong>None:</strong></p>
+<ul>
+<li>Indicates that the JWT is not signed. This is generally not recommended in production as it makes the token insecure.</li>
+</ul>
+</li>
+</ol>
+<p>Each algorithm has its own advantages and use cases. Asymmetric algorithms like RS256 are often used in scenarios where the issuer and recipient may have different keys, while symmetric algorithms like HS256 are used when both parties share a common secret key. The choice of algorithm depends on the specific security requirements of the application and system.</p>
+<h2 id="how-to-edit-jwt-token">How to edit JWT Token<a hidden class="anchor" aria-hidden="true" href="#how-to-edit-jwt-token">#</a></h2>
+<h4 id="you-can-use-httpsjwtio">You can use <a href="https://jwt.io">https://jwt.io</a><a hidden class="anchor" aria-hidden="true" href="#you-can-use-httpsjwtio">#</a></h4>
+<p><em>JWT.io is an online platform for JSON Web Tokens (JWT). It provides an interactive decoder for visualizing and analyzing JWTs, decoding headers and payloads, and verifying signatures. It&rsquo;s a handy tool for developers working with JWTs in authentication and authorization scenarios.</em></p>
+<p><img loading="lazy" src="/img/jwtio.png" alt="targets"  />
+</p>
+<h4 id="you-can-use-burpsuite-extension">You can use Burpsuite extension<a hidden class="anchor" aria-hidden="true" href="#you-can-use-burpsuite-extension">#</a></h4>
+<h4 id="jwt-editor">JWT Editor<a hidden class="anchor" aria-hidden="true" href="#jwt-editor">#</a></h4>
+<p><img loading="lazy" src="/img/ext_jwt.png" alt="targets"  />
+</p>
+<p>You can use the Burp Suite extension called &ldquo;JWT Editor&rdquo; to manipulate JSON Web Tokens (JWTs) in your requests. For instance, you have the ability to create a new RSA key and directly edit the token within the request.</p>
+<p><img loading="lazy" src="/img/ext_request.png" alt="targets"  />
+</p>
+<p>Upon selecting the key, you are presented with options to perform various actions such as:</p>
+<ul>
+<li><strong>Attack</strong>: This includes different types of attacks to test the JWT&rsquo;s security.</li>
+<li><strong>Sign</strong>: You can sign the JWT with a private key.</li>
+<li><strong>Encrypt</strong>: Options for encrypting the JWT.</li>
+</ul>
+<p>Under the &ldquo;Attack&rdquo; category, there are several techniques you can employ:</p>
+<ul>
+<li>
+<p><strong>Embedded JWT</strong>: Imagine you have a secret note (JWT) hidden within another note. The system should be smart enough to find and validate the hidden note.</p>
+</li>
+<li>
+<p><strong>&ldquo;none&rdquo; Signing Algorithm</strong>: In the world of secret codes (JWTs), using &ldquo;none&rdquo; as the code to seal a note isn&rsquo;t secure. It&rsquo;s like having a lock that anyone can open without a key.</p>
+</li>
+<li>
+<p><strong>HMAC Key Confusion</strong>: If you have multiple keys to open a lock, confusion might arise. The system should be smart enough to use the correct key.</p>
+</li>
+<li>
+<p><strong>Sign with Empty Key</strong>: Signing a note with an invisible key doesn’t make sense. The system should recognize this and not trust notes signed with an empty key.</p>
+</li>
+<li>
+<p><strong>Sign with Psychic Signature</strong>: If someone claims to predict the future, the system should be skeptical. It&rsquo;s like making sure a fortune teller is reliable before believing their predictions.</p>
+</li>
+<li>
+<p><strong>Embed Collaborator Payload</strong>: Imagine sending a secret message that includes a friend&rsquo;s contact information. If the system leaks this information, it&rsquo;s like accidentally revealing your friend&rsquo;s details.</p>
+</li>
+</ul>
+<p>More ressources :</p>
+<ul>
+<li><a href="https://book.hacktricks.xyz/pentesting-web/hacking-jwt-json-web-tokens">https://book.hacktricks.xyz/pentesting-web/hacking-jwt-json-web-tokens</a></li>
+<li><a href="https://portswigger.net/web-security/jwt">https://portswigger.net/web-security/jwt</a></li>
+</ul>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://Chic0s.fr/tags/pentest/">pentest</a></li>
+      <li><a href="https://Chic0s.fr/tags/web/">web</a></li>
+      <li><a href="https://Chic0s.fr/tags/jwt/">jwt</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2023 <a href="https://Chic0s.fr/">Chic0s</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Tags on Chic0s</title>
+    <link>https://Chic0s.fr/tags/</link>
+    <description>Recent content in Tags on Chic0s</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 03 Dec 2023 21:23:42 +0100</lastBuildDate><atom:link href="https://Chic0s.fr/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>jwt</title>
+      <link>https://Chic0s.fr/tags/jwt/</link>
+      <pubDate>Sun, 03 Dec 2023 21:23:42 +0100</pubDate>
+      
+      <guid>https://Chic0s.fr/tags/jwt/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>pentest</title>
+      <link>https://Chic0s.fr/tags/pentest/</link>
+      <pubDate>Sun, 03 Dec 2023 21:23:42 +0100</pubDate>
+      
+      <guid>https://Chic0s.fr/tags/pentest/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>web</title>
+      <link>https://Chic0s.fr/tags/web/</link>
+      <pubDate>Sun, 03 Dec 2023 21:23:42 +0100</pubDate>
+      
+      <guid>https://Chic0s.fr/tags/web/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ATtiny85</title>
+      <link>https://Chic0s.fr/tags/attiny85/</link>
+      <pubDate>Sun, 12 Nov 2023 16:44:42 +0100</pubDate>
+      
+      <guid>https://Chic0s.fr/tags/attiny85/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>hardware</title>
+      <link>https://Chic0s.fr/tags/hardware/</link>
+      <pubDate>Sun, 12 Nov 2023 16:44:42 +0100</pubDate>
+      
+      <guid>https://Chic0s.fr/tags/hardware/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>jwt on Chic0s</title>
+    <link>https://Chic0s.fr/tags/jwt/</link>
+    <description>Recent content in jwt on Chic0s</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 03 Dec 2023 21:23:42 +0100</lastBuildDate><atom:link href="https://Chic0s.fr/tags/jwt/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Jwt Token</title>
+      <link>https://Chic0s.fr/posts/jwt/</link>
+      <pubDate>Sun, 03 Dec 2023 21:23:42 +0100</pubDate>
+      
+      <guid>https://Chic0s.fr/posts/jwt/</guid>
+      <description>What is JWT Token ? A JSON Web Token (JWT) consists of three parts separated by periods (.): the header, the payload, and the signature. Each part is Base64-encoded.
+Example JWT:  Header:  { &amp;#34;alg&amp;#34;: &amp;#34;HS256&amp;#34;, &amp;#34;typ&amp;#34;: &amp;#34;JWT&amp;#34; } Encoded in Base64, the header becomes: eyJhbGciOiAiSFMyNTYiLCAidHlwIjogIkpXVCJ9
+Payload:  { &amp;#34;sub&amp;#34;: &amp;#34;1234567890&amp;#34;, &amp;#34;name&amp;#34;: &amp;#34;John Doe&amp;#34;, &amp;#34;iat&amp;#34;: 1516239022 } Encoded in Base64, the payload becomes:
+eyJzdWIiOiAiMTIzNDU2Nzg5MCIsICJuYW1lIjogIkpvaG4gRG9lIiwgICJpYXQiOiAxNTE2MjM5MDIyfQ Signature: The signature is generated using the algorithm specified in the header (here, &amp;ldquo;HS256&amp;rdquo;).</description>
+    </item>
+    
+  </channel>
+</rss>

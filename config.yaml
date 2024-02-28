@@ -1,0 +1,39 @@
+baseURL: "https://Chic0s.fr/"
+title: Chic0s
+paginate: 5
+theme: PaperMod
+
+params:
+    profileMode:
+        enabled: true
+        title: "Chic0s" 
+        subtitle: "Welcome to my blog"
+        imageUrl: "https://avatars.githubusercontent.com/u/96829109?v=4" # optional
+        imageTitle: "" # optional
+        imageWidth: 120 # custom size
+        imageHeight: 120 # custom size
+    socialIcons:
+        - name : "root-me"
+          url: https://www.root-me.org/Chic0s
+        - name: "github"
+          url: https://github.com/Chic0s
+    ShowBreadCrumbs: true
+    ShowReadingTime: true
+    assets:
+        favicon:
+            "favicon/favicon.ico"
+
+menu:
+    main:
+        - identifier: posts
+          name: Posts
+          url: /posts/
+          weight: 10
+        - identifier: tags
+          name: Tags
+          url: /tags/
+          weight: 10
+        - identifier: archives
+          name: Archives
+          url: /archives/
+          weight: 10

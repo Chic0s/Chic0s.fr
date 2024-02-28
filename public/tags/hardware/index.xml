@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>hardware on Chic0s</title>
+    <link>https://Chic0s.fr/tags/hardware/</link>
+    <description>Recent content in hardware on Chic0s</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 12 Nov 2023 16:44:42 +0100</lastBuildDate><atom:link href="https://Chic0s.fr/tags/hardware/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Keyboard with RubberDucky</title>
+      <link>https://Chic0s.fr/posts/keyboard/</link>
+      <pubDate>Sun, 12 Nov 2023 16:44:42 +0100</pubDate>
+      
+      <guid>https://Chic0s.fr/posts/keyboard/</guid>
+      <description>Integration of a Rubber Ducky into a USB Keyboard Objective: We are increasingly faced with the presence of dangerous USB keys. However, keyboards can also be a means of injecting malicious code into your computer. We will see how to create a keyboard with a Rubber Ducky. Nevertheless, for security reasons, no code will be disclosed.
+Hardware Firstly, a soldering set will be necessary, and you need some basic skills to complete this project.</description>
+    </item>
+    
+  </channel>
+</rss>
